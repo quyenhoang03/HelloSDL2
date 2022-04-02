@@ -1,0 +1,16 @@
+# ninja log v5
+1	159	6706240225997876	build.ninja	edf2d47c88d04d1a
+2	1178	6705871558456664	CMakeFiles/HelloSDL2.dir/game_map.cpp.obj	f5abd8817df75b2a
+2	1182	6705989099809278	CMakeFiles/HelloSDL2.dir/main.cpp.obj	1dea8cc23dbc2aea
+1183	1274	6705989100696814	HelloSDL2.exe	aa41054b5875bb59
+16	1547	6705987517457815	CMakeFiles/HelloSDL2.dir/CommonFunction.cpp.obj	7dd58900c0559dbe
+18	1548	6705987517467817	CMakeFiles/HelloSDL2.dir/BaseObject.cpp.obj	13f0725c97c221df
+14	1223	6706258680203386	CMakeFiles/HelloSDL2.dir/CommonFunction.cpp.obj	7dd58900c0559dbe
+16	1227	6706258680253404	CMakeFiles/HelloSDL2.dir/BaseObject.cpp.obj	13f0725c97c221df
+18	1234	6706258680323429	CMakeFiles/HelloSDL2.dir/game_map.cpp.obj	f5abd8817df75b2a
+3	1238	6706258680353435	CMakeFiles/HelloSDL2.dir/main.cpp.obj	1dea8cc23dbc2aea
+1238	1405	6706258682009461	HelloSDL2.exe	e55c8834492ae9db
+3	1203	6706260215201438	CMakeFiles/HelloSDL2.dir/game_map.cpp.obj	f5abd8817df75b2a
+1203	1310	6706260216251905	HelloSDL2.exe	e55c8834492ae9db
+3	1571	6706275999949074	CMakeFiles/HelloSDL2.dir/game_map.cpp.obj	f5abd8817df75b2a
+1572	1767	6706276001854789	HelloSDL2.exe	e55c8834492ae9db

@@ -1,0 +1,3 @@
+C:/Users/quyen/CLionProjects/HelloSDL2/cmake-build-debug/CMakeFiles/HelloSDL2.dir
+C:/Users/quyen/CLionProjects/HelloSDL2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/quyen/CLionProjects/HelloSDL2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

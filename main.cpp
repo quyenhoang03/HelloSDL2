@@ -1,3 +1,4 @@
+//test for git
 #include "CommonFunction.h"
 #include "BaseObject.h"
 #include "game_map.h"
@@ -57,7 +58,7 @@ int main( int argc, char *argv[] ) {
     }
 
     GameMap game_map;
-    game_map.LoadMap("map/map01.dat");
+    game_map.LoadMap(const_cast<char *>("map/map01.dat"));
     game_map.LoadTiles(g_screen);
 
     MainObject p_player;

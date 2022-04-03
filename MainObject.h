@@ -43,4 +43,5 @@ private:
     int status_;
 };
 
+
 #endif //HELLOSDL2_MAINOBJECT_H

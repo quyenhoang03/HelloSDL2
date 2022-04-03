@@ -14,7 +14,7 @@ void GameMap::LoadMap( char *name ) {
         game_map_.max_x_ = 0;
         for ( int i = 0; i < MAX_MAP_Y; i++ ) {
             for ( int j = 0; j < MAX_MAP_X; j++ ) {
-                fscanf(fp, "%d", &game_map_.tile[i][j]);
+                fscanf_s(fp, "%d", &game_map_.tile[i][j]);
                 if ( game_map_.tile[i][j] > 0 ) {
                     if ( j > game_map_.max_x_ ) game_map_.max_x_ = j;
                     if ( i > game_map_.max_y_ ) game_map_.max_y_ = i;
@@ -41,7 +41,7 @@ void GameMap::LoadTiles( SDL_Renderer *screen ) {
             std::cout << "Failed to load Tiles" << file_img << std::endl;
 
         }
-        fclose(fp);
+        if ( fp != nullptr ) fclose(fp);
         tile_mat[i].LoadImg(file_img, screen);
     }
 }

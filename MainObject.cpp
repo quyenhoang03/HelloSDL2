@@ -30,7 +30,7 @@ bool MainObject::LoadImg( std::string path, SDL_Renderer *screen ) {
 }
 
 void MainObject::set_clips() {
-    if ( width_frame_ > 0 & height_frame_ > 0 ) {
+    if ( width_frame_ > 0 && height_frame_ > 0 ) {
         for ( int i = 0; i < 8; i++ ) {
             frame_clip_[i].x = i * width_frame_;
             frame_clip_[i].y = 0;
@@ -42,9 +42,9 @@ void MainObject::set_clips() {
 
 void MainObject::Show( SDL_Renderer *des ) {
     if ( status_ == WALK_LEFT ) {
-        LoadImg("img//player_left.png", des);
+        LoadImg("img/player_left.png", des);
     } else {
-        LoadImg("img//player_right.png", des);
+        LoadImg("img/player_right.png", des);
     }
     if ( input_type_.left_ == 1 || input_type_.right_ == 1 ) {
         frame_++;

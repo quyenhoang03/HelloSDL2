@@ -77,6 +77,13 @@ build CMakeFiles/HelloSDL2.dir/game_map.cpp.obj: CXX_COMPILER__HelloSDL2_Release
   OBJECT_DIR = CMakeFiles\HelloSDL2.dir
   OBJECT_FILE_DIR = CMakeFiles\HelloSDL2.dir
 
+build CMakeFiles/HelloSDL2.dir/MainObject.cpp.obj: CXX_COMPILER__HelloSDL2_Release C$:/Users/quyen/CLionProjects/HelloSDL2/MainObject.cpp || cmake_object_order_depends_target_HelloSDL2
+  DEP_FILE = CMakeFiles\HelloSDL2.dir\MainObject.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++11
+  INCLUDES = -ID:/SDL2_for_visualstudio/SDL2-2.0.20/include -ID:/SDL2_for_visualstudio/SDL2_image-2.0.5/include -ID:/SDL2_for_visualstudio/SDL2_mixer-2.0.4/include -ID:/SDL2_for_visualstudio/SDL2_ttf-2.0.18/include
+  OBJECT_DIR = CMakeFiles\HelloSDL2.dir
+  OBJECT_FILE_DIR = CMakeFiles\HelloSDL2.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target HelloSDL2
@@ -85,7 +92,7 @@ build CMakeFiles/HelloSDL2.dir/game_map.cpp.obj: CXX_COMPILER__HelloSDL2_Release
 #############################################
 # Link the executable HelloSDL2.exe
 
-build HelloSDL2.exe: CXX_EXECUTABLE_LINKER__HelloSDL2_Release CMakeFiles/HelloSDL2.dir/main.cpp.obj CMakeFiles/HelloSDL2.dir/CommonFunction.cpp.obj CMakeFiles/HelloSDL2.dir/BaseObject.cpp.obj CMakeFiles/HelloSDL2.dir/game_map.cpp.obj
+build HelloSDL2.exe: CXX_EXECUTABLE_LINKER__HelloSDL2_Release CMakeFiles/HelloSDL2.dir/main.cpp.obj CMakeFiles/HelloSDL2.dir/CommonFunction.cpp.obj CMakeFiles/HelloSDL2.dir/BaseObject.cpp.obj CMakeFiles/HelloSDL2.dir/game_map.cpp.obj CMakeFiles/HelloSDL2.dir/MainObject.cpp.obj
   FLAGS = -O3 -DNDEBUG
   LINK_LIBRARIES = -lSDL2main  -lSDL2  -lSDL2_image  -lSDL2_mixer  -lSDL2_ttf  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LD:/SDL2_for_visualstudio/SDL2-2.0.20/lib/x64   -LD:/SDL2_for_visualstudio/SDL2_image-2.0.5/lib/x64   -LD:/SDL2_for_visualstudio/SDL2_mixer-2.0.4/lib/x64   -LD:/SDL2_for_visualstudio/SDL2_ttf-2.0.18/lib/x64

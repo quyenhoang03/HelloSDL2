@@ -1,3 +1,9 @@
 # ninja log v5
 1	423	6690377680202705	CMakeFiles/HelloSDL2.dir/main.cpp.obj	ffe3314e5ff57913
 425	522	6690377681172919	HelloSDL2.exe	34b78c6629c2c7be
+12	1349	6706998694540640	CMakeFiles/HelloSDL2.dir/CommonFunction.cpp.obj	ca04d7dbb58e6b9b
+15	1372	6706998694770692	CMakeFiles/HelloSDL2.dir/BaseObject.cpp.obj	67fe88062ed20225
+2	1400	6706998695030753	CMakeFiles/HelloSDL2.dir/main.cpp.obj	95ea7099a34e3579
+21	1403	6706998695080765	CMakeFiles/HelloSDL2.dir/MainObject.cpp.obj	fb21c7535d68fa81
+18	1420	6706998695260802	CMakeFiles/HelloSDL2.dir/game_map.cpp.obj	dfd90b683808a0b5
+1420	1536	6706998696391052	HelloSDL2.exe	cd688ae1d1ffe552

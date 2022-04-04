@@ -17,6 +17,7 @@ static SDL_Window *g_window = nullptr;
 static SDL_Event g_event;
 static SDL_Renderer *g_screen = nullptr;
 
+const int FRAME_PER_SECOND = 30;// fps of the game
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 640;
 const int SCREEN_BPP = 32;
@@ -30,6 +31,7 @@ const int RENDER_DRAW_COLOR = 0Xff;
 #define TILE_SIZE 64
 #define MAX_MAP_X 400
 #define MAX_MAP_Y 10
+#define BLANK_TILE 0
 
 struct Input {
     int left_;

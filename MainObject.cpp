@@ -44,11 +44,14 @@ void MainObject::set_clips() {
 }
 
 void MainObject::Show( SDL_Renderer *des ) {
-    if ( status_ == WALK_LEFT ) {
-        LoadImg("img/player_left.png", des);
-    } else {
-        LoadImg("img/player_right.png", des);
+    if ( on_ground == true ) {
+        if ( status_ == WALK_LEFT ) {
+            LoadImg("img/player_left.png", des);
+        } else {
+            LoadImg("img/player_right.png", des);
+        }
     }
+
     if ( input_type_.left_ == 1 || input_type_.right_ == 1 ) {
         frame_++;
     } else {
@@ -70,14 +73,21 @@ void MainObject::HandleInputAction( SDL_Event events, SDL_Renderer *screen ) {
                 status_ = WALK_RIGHT;
                 input_type_.right_ = 1;
                 input_type_.left_ = 0;
+                if ( on_ground == true ) LoadImg("img//player_right.png", screen);
+                else LoadImg("C:/Users/quyen/Downloads/jump player/jum_right.png", screen);
             }
                 break;
             case SDLK_LEFT: {
                 status_ = WALK_LEFT;
                 input_type_.left_ = 1;
                 input_type_.right_ = 0;
+                if ( on_ground == true ) LoadImg("img//player_left.png", screen);
+                else LoadImg("C:/Users/quyen/Downloads/jump player/jum_left.png", screen);
             }
                 break;
+//            case SDLK_UP:
+//                input_type_.jump_ = 1;
+//                break;
             default:
                 break;
         }
@@ -91,8 +101,16 @@ void MainObject::HandleInputAction( SDL_Event events, SDL_Renderer *screen ) {
                 input_type_.left_ = 0;
             }
                 break;
+//            case SDLK_UP:
+//                input_type_.jump_ = 1;
+//                break;
             default:
                 break;
+        }
+    }
+    if ( events.type == SDL_MOUSEBUTTONDOWN ) {
+        if ( events.button.button == SDL_BUTTON_RIGHT ) {
+            input_type_.jump_ = 1;
         }
     }
 }
@@ -103,6 +121,13 @@ void MainObject::DoPlayer( Map &map_data ) {
     if ( y_val_ >= MAX_FALL_SPEED ) y_val_ = MAX_FALL_SPEED;
     if ( input_type_.left_ == 1 ) x_val_ -= PLAYER_SPEED;
     else if ( input_type_.right_ == 1 ) x_val_ += PLAYER_SPEED;
+    if ( input_type_.jump_ == 1 ) {
+        if ( on_ground == true ) {
+            y_val_ = -PLAYER_JUMP_VAL;
+            input_type_.jump_ = 0;
+        }
+
+    }
     CheckToMap(map_data);
     CenterEntityOnMap(map_data);
 }

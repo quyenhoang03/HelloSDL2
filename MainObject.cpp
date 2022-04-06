@@ -12,10 +12,11 @@ MainObject::MainObject() {
     y_val_ = 0;
     width_frame_ = 0;
     height_frame_ = 0;
-    status_ = -1;
+    status_ = WALK_NONE;
     on_ground = false;
     map_x_ = 0;
     map_y_ = 0;
+    come_back_time = 0;
 }
 
 MainObject::~MainObject() {
@@ -44,13 +45,7 @@ void MainObject::set_clips() {
 }
 
 void MainObject::Show( SDL_Renderer *des ) {
-    if ( on_ground == true ) {
-        if ( status_ == WALK_LEFT ) {
-            LoadImg("img/player_left.png", des);
-        } else {
-            LoadImg("img/player_right.png", des);
-        }
-    }
+    UpdateImagePlayer(des);
 
     if ( input_type_.left_ == 1 || input_type_.right_ == 1 ) {
         frame_++;
@@ -58,12 +53,14 @@ void MainObject::Show( SDL_Renderer *des ) {
         frame_ = 0;
     }
     if ( frame_ >= 8 ) frame_ = 0;
-    rect_.x = x_pos_ - map_x_;
-    rect_.y = y_pos_ - map_y_;
-    SDL_Rect *current_clip = &frame_clip_[frame_];
+    if ( come_back_time == 0 ) {
+        rect_.x = x_pos_ - map_x_;
+        rect_.y = y_pos_ - map_y_;
+        SDL_Rect *current_clip = &frame_clip_[frame_];
 
-    SDL_Rect renderQuad = { rect_.x, rect_.y, width_frame_, height_frame_, };
-    SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
+        SDL_Rect renderQuad = { rect_.x, rect_.y, width_frame_, height_frame_, };
+        SDL_RenderCopy(des, p_object_, current_clip, &renderQuad);
+    }
 }
 
 void MainObject::HandleInputAction( SDL_Event events, SDL_Renderer *screen ) {
@@ -73,16 +70,14 @@ void MainObject::HandleInputAction( SDL_Event events, SDL_Renderer *screen ) {
                 status_ = WALK_RIGHT;
                 input_type_.right_ = 1;
                 input_type_.left_ = 0;
-                if ( on_ground == true ) LoadImg("img//player_right.png", screen);
-                else LoadImg("C:/Users/quyen/Downloads/jump player/jum_right.png", screen);
+                UpdateImagePlayer(screen);
             }
                 break;
             case SDLK_LEFT: {
                 status_ = WALK_LEFT;
                 input_type_.left_ = 1;
                 input_type_.right_ = 0;
-                if ( on_ground == true ) LoadImg("img//player_left.png", screen);
-                else LoadImg("C:/Users/quyen/Downloads/jump player/jum_left.png", screen);
+                UpdateImagePlayer(screen);
             }
                 break;
 //            case SDLK_UP:
@@ -116,20 +111,38 @@ void MainObject::HandleInputAction( SDL_Event events, SDL_Renderer *screen ) {
 }
 
 void MainObject::DoPlayer( Map &map_data ) {
-    x_val_ = 0;
-    y_val_ += GRAVITY_SPEED;
-    if ( y_val_ >= MAX_FALL_SPEED ) y_val_ = MAX_FALL_SPEED;
-    if ( input_type_.left_ == 1 ) x_val_ -= PLAYER_SPEED;
-    else if ( input_type_.right_ == 1 ) x_val_ += PLAYER_SPEED;
-    if ( input_type_.jump_ == 1 ) {
-        if ( on_ground == true ) {
-            y_val_ = -PLAYER_JUMP_VAL;
-            input_type_.jump_ = 0;
-        }
+    if ( come_back_time == 0 ) {
+        x_val_ = 0;
+        y_val_ += GRAVITY_SPEED;
+        if ( y_val_ >= MAX_FALL_SPEED ) y_val_ = MAX_FALL_SPEED;
+        if ( input_type_.left_ == 1 ) x_val_ -= PLAYER_SPEED;
+        else if ( input_type_.right_ == 1 ) x_val_ += PLAYER_SPEED;
+        if ( input_type_.jump_ == 1 ) {
+            if ( on_ground == true ) {
+                y_val_ = -PLAYER_JUMP_VAL;
+                on_ground = false;
+                input_type_.jump_ = 0;
+            }
 
+        }
+        CheckToMap(map_data);
+        CenterEntityOnMap(map_data);
+    } else if ( come_back_time > 0 ) {
+        come_back_time--;
+        if ( come_back_time == 0 ) {
+            on_ground = false;
+            if ( x_pos_ > 256 ) {
+                x_pos_ -= 128; // decrease 2 tiles
+//                map_x_ -= 128;
+            } else {
+                x_pos_ = 0;
+            }
+            y_pos_ = 0;
+            x_val_ = 0;
+            y_val_ = 0;
+
+        }
     }
-    CheckToMap(map_data);
-    CenterEntityOnMap(map_data);
 }
 
 void MainObject::CenterEntityOnMap( Map &map_data ) {
@@ -148,7 +161,6 @@ void MainObject::CheckToMap( Map &map_data ) {
 
     int y1 = 0;
     int y2 = 0;
-
     //Check Horizontal
     int height_min = height_frame_ < TILE_SIZE ? height_frame_ : TILE_SIZE;
 
@@ -188,6 +200,10 @@ void MainObject::CheckToMap( Map &map_data ) {
                 y_pos_ -= ( height_frame_ + 1 );
                 y_val_ = 0;
                 on_ground = true;
+                if ( status_ == WALK_NONE ) {
+                    status_ = WALK_RIGHT;
+                }
+
             }
         } else if ( y_val_ < 0 ) {
             if ( map_data.tile[y1][x1] != BLANK_TILE || map_data.tile[y1][x2] != BLANK_TILE ) {
@@ -200,4 +216,23 @@ void MainObject::CheckToMap( Map &map_data ) {
     y_pos_ += y_val_;
     if ( x_pos_ < 0 ) x_pos_ = 0;
     else if ( x_pos_ + width_frame_ > map_data.max_x_ ) x_pos_ = map_data.max_x_ - width_frame_ - 1;
+    if ( y_pos_ > map_data.max_y_ ) {
+        come_back_time = 20;
+    }
+}
+
+void MainObject::UpdateImagePlayer( SDL_Renderer *des ) {
+    if ( on_ground == true ) {
+        if ( status_ == WALK_LEFT ) {
+            LoadImg("img/player_left.png", des);
+        } else if ( status_ == WALK_RIGHT ) {
+            LoadImg("img/player_right.png", des);
+        }
+    } else {
+        if ( status_ == WALK_LEFT ) {
+            LoadImg("img/jump_left.png", des);
+        } else if ( status_ == WALK_RIGHT ) {
+            LoadImg("img/jump_right.png", des);
+        }
+    }
 }

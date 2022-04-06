@@ -16,6 +16,7 @@ BaseObject::~BaseObject() {
 }
 
 bool BaseObject::LoadImg( std::string path, SDL_Renderer *screen ) {
+    Free();
     SDL_Texture *new_texture = nullptr;
     SDL_Surface *load_surface = IMG_Load(path.c_str());
     if ( load_surface != nullptr ) {
@@ -27,7 +28,7 @@ bool BaseObject::LoadImg( std::string path, SDL_Renderer *screen ) {
             rect_.h = load_surface->h;
         }
         SDL_FreeSurface(load_surface);
-    } else std::cout << " Failed to load " << path << "\n";
+    } else std::cout << " Failed to load  " << path << "\n";
     p_object_ = new_texture;
     return p_object_ != nullptr;
 }

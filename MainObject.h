@@ -20,8 +20,9 @@ public:
     ~MainObject();
 
     enum WalkType {
-        WALK_RIGHT = 0,
-        WALK_LEFT = 1,
+        WALK_NONE = 0,
+        WALK_RIGHT = 1,
+        WALK_LEFT = 2,
     };
 
     bool LoadImg( std::string path, SDL_Renderer *screen );
@@ -43,6 +44,9 @@ public:
 
     void CenterEntityOnMap( Map &map_data );
 
+    void UpdateImagePlayer( SDL_Renderer *des );
+
+
 private:
     float x_val_;
     float y_val_;
@@ -60,6 +64,8 @@ private:
     bool on_ground;
     int map_x_;
     int map_y_;
+
+    int come_back_time;
 };
 
 
